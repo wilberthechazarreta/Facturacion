@@ -6,18 +6,17 @@ import org.openxava.annotations.*;
 
 import lombok.*;
 
-@Entity @Getter  @Setter
-public class Cliente {
+@Entity @Getter @Setter
+public class Cliente {	
 	
 	@Id
-	@Column(length=6)
+	@Column(length = 6)
 	int numero;
 	
-	@Column(length=50)
+	@Column(length = 50)
 	@Required
 	String nombre;
 	
 	@Embedded
 	Direccion direccion;
-
 }
