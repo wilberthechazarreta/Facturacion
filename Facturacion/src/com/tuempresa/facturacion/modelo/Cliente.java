@@ -6,8 +6,10 @@ import org.openxava.annotations.*;
 
 import lombok.*;
 
-@Entity @Getter @Setter
-public class Cliente {	
+@Entity 
+@Getter @Setter
+@View(name = "Simple", members = "numero, nombre")
+public class Cliente {
 	
 	@Id
 	@Column(length = 6)
