@@ -4,6 +4,7 @@ import java.math.*;
 
 import javax.persistence.*;
 
+import org.hibernate.validator.constraints.*;
 import org.openxava.annotations.*;
 
 import lombok.*;
@@ -34,4 +35,7 @@ public class Producto {
     @ManyToOne(fetch = FetchType.LAZY)
     @DescriptionsList
     Autor autor;
+    
+    @Column(length = 13) @ISBN
+    String isbn;
 }
