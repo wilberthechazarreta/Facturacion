@@ -15,7 +15,6 @@ public class Identificable {
 	@Hidden
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	
 	@Column(length = 32)
 	String oid;
 }

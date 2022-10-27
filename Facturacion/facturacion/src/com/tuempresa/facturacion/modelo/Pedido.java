@@ -5,12 +5,13 @@ import java.time.*;
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
+import org.openxava.util.*;
 
 import lombok.*;
 
 @Entity @Getter @Setter
 @View(extendsView = "super.DEFAULT",
-        members = "diasEntregaEstimados,"
+        members = "diasEntregaEstimados, entregado,"
         		+ "factura { factura }"
 ) 
 @View(name = "SinClienteNiFactura",
@@ -19,6 +20,7 @@ import lombok.*;
        + "detalles;"
        + "observaciones"
 		)
+
 public class Pedido extends DocumentoComercial{
 
 	@ManyToOne
@@ -39,5 +41,20 @@ public class Pedido extends DocumentoComercial{
 	@PrePersist @PreUpdate
 	private void recalculadorDiasEntrega() {
 		setDiasEntrega(getDiasEntregaEstimados());
+	}
+	@Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
+	boolean entregado;
+	
+	@PrePersist @PreUpdate
+	private void validar() throws Exception{
+		if (factura !=null && !isEntregado()) {
+			throw new javax.validation.ValidationException(
+					XavaResources.getString(
+							"pedido_debe_estar_entregado",
+							getAnyo(),
+							getNumero())
+					);
+			
+		}
 	}
 }
